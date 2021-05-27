@@ -23,4 +23,4 @@ jobs:
     - run: npm test
       env:
         CI: true
-        MONGOOSE_TEST_URI: mongodb+srv://souls:55555@cluster0.upvew.mongodb.net/auth-api-test?retryWrites=true&w=majority
+        MONGOOSE_TEST_URI: mongodb+srv://souls:55555@cluster0.upvew.mongodb.net/auth-api-test-github?retryWrites=true&w=majority
