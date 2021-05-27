@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>auth-api</h1>
+<h2>About</h2>
+<p>The server has two api versions:</p>
+<p>Version 1 :</p>
+<p>Consists of 2 routes, food and clothes with CRUD operations and Mongoose Database.</p>
+<p>Version 2:</p>
+<p>The server will allow users to sign up and sign in using basic authentication and bearer authentication, RBAC rules are applied on the users.The users have different CRUD permissions depends on their roles in the Mongoose Database.</p>
+<hr>
+<h2>Author</h2>
+<h4>Amjad Mesmar</h4>
+<hr>
+<h2>Links</h2>
+<ul>
+<li>
+<p><a href="https://github.com/AmjadMesmar/auth-api">Repo</a></p>
+</li>
+<li>
+<p><a href="https://github.com/AmjadMesmar/auth-api/pull/1">Submission Pull Request</a></p>
+</li>
+<li>
+<p><a href="https://souls-auth-api.herokuapp.com">Deployed App</a></p>
+</li>
+<li>
+<p><a href="https://github.com/AmjadMesmar/auth-api/actions">Action Report</a></p>
+</li>
+</ul>
+<hr>
+<h2>Setup</h2>
+<ol>
+<li><em><strong>(.env)</strong></em> file:</li>
+</ol>
+<pre class="prettyprint source"><code>
+PORT=5000
+MONGODB_URI=mongodb+srv://souls:55555@cluster0.upvew.mongodb.net/auth-api
+MONGOOSE_TEST_URI=mongodb+srv://souls:55555@cluster0.upvew.mongodb.net/auth-api-test
+SECRET=55555
+
+
+</code></pre>
+<ol start="2">
+<li>Install the following dependencies</li>
+</ol>
+<pre class="prettyprint source"><code>
+&quot;dependencies&quot;: {
+    &quot;@code-fellows/supergoose&quot;: &quot;^1.1.0&quot;,
+    &quot;base-64&quot;: &quot;^1.0.0&quot;,
+    &quot;bcrypt&quot;: &quot;^5.0.1&quot;,
+    &quot;cors&quot;: &quot;^2.8.5&quot;,
+    &quot;dotenv&quot;: &quot;^10.0.0&quot;,
+    &quot;eslint&quot;: &quot;^7.27.0&quot;,
+    &quot;express&quot;: &quot;^4.17.1&quot;,
+    &quot;jsonwebtoken&quot;: &quot;^8.5.1&quot;,
+    &quot;mongoose&quot;: &quot;^5.12.11&quot;,
+    &quot;morgan&quot;: &quot;^1.10.0&quot;,
+    &quot;multer&quot;: &quot;^1.4.2&quot;,
+    &quot;supergoose&quot;: &quot;^0.2.6&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;jest&quot;: &quot;^27.0.1&quot;,
+    &quot;supertest&quot;: &quot;^6.1.3&quot;
+  }
+</code></pre>
+<br>
+<h2>Running the app</h2>
+<ol>
+<li>clone the repo.</li>
+<li>Enter the command <code>npm start</code></li>
+<li>Use endpoints :</li>
+</ol>
+<br>
+<h2>API V1</h2>
+<h3><code>*/api/v1/food</code></h3>
+<ul>
+<li><strong>Method</strong>: get, post, put, delete</li>
+<li><strong>Response Body</strong>: JSON</li>
+<li><em><strong>calories should be a number only</strong></em></li>
+<li><em><strong>type should be only FRUIT,VEGETABLE or PROTIEN, it will also return all in uppercase.</strong></em></li>
+</ul>
+<pre class="prettyprint source"><code>{
+    &quot;_id&quot;: &quot;60aed7758b6ab734c5f2bcec&quot;,
+    &quot;name&quot;: &quot;apple&quot;,
+    &quot;calories&quot;: 50,
+    &quot;type&quot;: &quot;FRUIT&quot;,
+    &quot;__v&quot;: 0
+}
+
+</code></pre>
+<h3><code>*/api/v1/clothes</code></h3>
+<ul>
+<li><strong>Method</strong>: get, post, put, delete</li>
+<li><strong>Response Body</strong>: JSON</li>
+<li><em><strong>All keys are string</strong></em></li>
+</ul>
+<pre class="prettyprint source"><code>{
+    &quot;_id&quot;: &quot;60aed8698b6ab734c5f2bced&quot;,
+    &quot;name&quot;: &quot;T-shirt&quot;,
+    &quot;color&quot;: &quot;red&quot;,
+    &quot;size&quot;: &quot;xl&quot;,
+    &quot;__v&quot;: 0
+}
+
+</code></pre>
+<h2>API V2</h2>
+<h2>signup</h2>
+<h3><code>*/signup</code></h3>
+<br>
+<ul>
+<li><strong>Method</strong>: post</li>
+<li><em><strong>Basic Authentication sign up and will give token</strong></em></li>
+<li>*<strong>Role should be: admin, editor, writer or user, if not filled the difault will always be user</strong></li>
+<li><strong>Response Body</strong>: JSON</li>
+</ul>
+<pre class="prettyprint source"><code>
+{
+    &quot;user&quot;: {
+        &quot;role&quot;: &quot;admin&quot;,
+        &quot;_id&quot;: &quot;60aed8d48b6ab734c5f2bcee&quot;,
+        &quot;username&quot;: &quot;Ainz-Sama&quot;,
+        &quot;password&quot;: &quot;$2b$10$M1KGjJQLzXfb.oKqExkVR.cErQTv2oI2aVJHws2b1lk3zbNdMqmha&quot;,
+        &quot;__v&quot;: 0
+    },
+    &quot;token&quot;: &quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFpbnotU2FtYSIsImlhdCI6MTYyMjA3MTUwOX0.iSnqB9akQgdKJUD1HLEB55kb4iw2z3BaeLeAxVLrKm4&quot;
+}
+
+
+</code></pre>
+<h2>Signin</h2>
+<h3><code>*/signin</code></h3>
+<br>
+<ul>
+<li><strong>Method</strong>: POST</li>
+<li><em><strong>Basic Authentication Login</strong></em></li>
+<li>*<strong>With user name and password</strong></li>
+<li><strong>Response Body</strong>: JSON</li>
+</ul>
+<pre class="prettyprint source"><code>
+{
+    &quot;user&quot;: {
+        &quot;role&quot;: &quot;admin&quot;,
+        &quot;_id&quot;: &quot;60aed8d48b6ab734c5f2bcee&quot;,
+        &quot;username&quot;: &quot;Ainz-Sama&quot;,
+        &quot;password&quot;: &quot;$2b$10$M1KGjJQLzXfb.oKqExkVR.cErQTv2oI2aVJHws2b1lk3zbNdMqmha&quot;,
+        &quot;__v&quot;: 0
+    },
+    &quot;token&quot;: &quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFpbnotU2FtYSIsImlhdCI6MTYyMjA3MTk0NX0.oV6CQFwUGonHZ_EZcYuSjk-hF65JVpC_6uE_Z3aMi-I&quot;
+}
+
+</code></pre>
+<br>
+<h2>secret</h2>
+<h3><code>*/api/v2/secret</code></h3>
+<br>
+<ul>
+<li><strong>Method</strong>: get</li>
+<li><em><strong>Sign in using bearer authentication using token and secret</strong></em></li>
+<li><strong>Response Body</strong>: Text</li>
+</ul>
+<pre class="prettyprint source"><code>
+Welcome to the secret area, Ainz-Sama !
+
+</code></pre>
+<br>
+<h2>Users</h2>
+<h3><code>*/api/v2/users</code></h3>
+<br>
+<ul>
+<li><strong>Method</strong>: get</li>
+<li><em><strong>Will use the user's token with bearer authentication</strong></em></li>
+<li><em><strong>Will return all users in the database, this only works for admins since the user must have delete permission</strong></em></li>
+<li><strong>Response Body</strong>: Array</li>
+</ul>
+<pre class="prettyprint source"><code>
+[
+    &quot;ainz&quot;,
+    &quot;emran&quot;,
+    &quot;ainz-sama&quot;,
+    &quot;melon&quot;,
+    &quot;Ainz-Sama&quot;
+]
+</code></pre>
+<br>
+<h2>Read</h2>
+<h3><code>*/api/v2/user</code></h3>
+<br>
+<ul>
+<li><strong>Method</strong>: get</li>
+<li><em><strong>Will use the user's token with bearer authentication</strong></em></li>
+<li><em><strong>Will return the user's from database, this works for all users since it's for read permission.</strong></em></li>
+<li><strong>Response Body</strong>: JSON</li>
+</ul>
+<pre class="prettyprint source"><code>
+{
+    &quot;user&quot;: {
+        &quot;role&quot;: &quot;admin&quot;,
+        &quot;_id&quot;: &quot;60aed8d48b6ab734c5f2bcee&quot;,
+        &quot;username&quot;: &quot;Ainz-Sama&quot;,
+        &quot;password&quot;: &quot;$2b$10$M1KGjJQLzXfb.oKqExkVR.cErQTv2oI2aVJHws2b1lk3zbNdMqmha&quot;,
+        &quot;__v&quot;: 0
+    }
+}
+</code></pre>
+<h2>Create</h2>
+<h3><code>*/api/v2/create</code></h3>
+<br>
+<ul>
+<li><strong>Method</strong>: post</li>
+<li><em><strong>Will use the user's token with bearer authentication</strong></em></li>
+<li><em><strong>Will return a text if user have permission to create.</strong></em></li>
+<li><strong>Response Body</strong>: TEXT</li>
+</ul>
+<pre class="prettyprint source"><code>
+Hey Ainz-Sama, You can create something!!
+
+</code></pre>
+<br>
+<h2>Update</h2>
+<h3><code>*/api/v2/update</code></h3>
+<br>
+<ul>
+<li><strong>Method</strong>: put</li>
+<li><em><strong>Will use the user's token with bearer authentication</strong></em></li>
+<li><em><strong>Will return a text if user have permission to update.</strong></em></li>
+<li><strong>Response Body</strong>: TEXT</li>
+</ul>
+<pre class="prettyprint source"><code>
+Hey Ainz-Sama, You can update something!!
+
+</code></pre>
+<br>
+<h2>Patch</h2>
+<h3><code>*/api/v2/patch</code></h3>
+<br>
+<ul>
+<li><strong>Method</strong>: patch</li>
+<li><em><strong>Will use the user's token with bearer authentication</strong></em></li>
+<li><em><strong>Will return a text if user have permission to update.</strong></em></li>
+<li><strong>Response Body</strong>: TEXT</li>
+</ul>
+<pre class="prettyprint source"><code>
+Hey Ainz-Sama, You can patch something!!
+</code></pre>
+<br>
+<h2>Delete</h2>
+<h3><code>*/api/v2/delete</code></h3>
+<br>
+<ul>
+<li><strong>Method</strong>: delete</li>
+<li><em><strong>Will use the user's token with bearer authentication</strong></em></li>
+<li><em><strong>Will return a text if user have permission to delete.</strong></em></li>
+<li><strong>Response Body</strong>: TEXT</li>
+</ul>
+<pre class="prettyprint source"><code>
+Hey Ainz-Sama, You can delete something!!
+
+</code></pre>
+<br>
+<h2>What happens If user does not have a permission?</h2>
+<br>
+<ul>
+<li><strong>Method</strong>: any except read ('*/api/v1/user') since its for all users.</li>
+<li><em><strong>Will use the user's token with bearer authentication</strong></em></li>
+<li><strong>Response Body</strong>:JSON</li>
+</ul>
+<pre class="prettyprint source"><code>
+{
+    &quot;error&quot;: &quot;Access Denied&quot;
+}
+</code></pre>
+<br>
+<ol start="4">
+<li>Test:</li>
+</ol>
+<ul>
+<li>To test the server write in terminal:</li>
+</ul>
+<pre class="prettyprint source"><code>npm test
+</code></pre>
+<p><br><br><br></p>
+<hr>
+<p><br><br></p>
+<h2>UML Diagram</h2>
+<p><img src="Auth-Api-Uml.png" alt="Uml diagram"></p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu May 27 2021 03:00:09 GMT+0300 (Eastern European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
