@@ -24,7 +24,7 @@ The server will allow users to sign up and sign in using basic authentication an
 
 - [Repo](https://github.com/AmjadMesmar/auth-api)
 
-- [Submission Pull Request](https://github.com/AmjadMesmar/auth-api/pull/1)
+- [Submission Pull Request](https://github.com/AmjadMesmar/auth-api/pull/2)
 
 - [Deployed App](https://souls-auth-api.herokuapp.com)
 
