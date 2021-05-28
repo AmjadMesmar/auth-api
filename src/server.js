@@ -11,6 +11,7 @@ const notFound = require('./error-handlers/404.js');
 const authRoutes = require('./auth/routes.js');
 const logger = require('./auth/middleware/logger.js');
 const v1Routes = require('./routes/v1.js');
+const v2Routes = require('./routes/v2.js');
 
 
 // Prepare the express app
@@ -24,8 +25,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use('/api/v2',authRoutes);
+app.use('/',authRoutes);
 app.use('/api/v1', v1Routes);
+app.use('/api/v2',v2Routes); // new route for fodd and clothes
 app.use(logger);
 
 
