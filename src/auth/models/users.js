@@ -59,7 +59,7 @@ users.statics.authenticateWithToken = async function (token) {
     if (user) { return user; }
     throw new Error("User Not Found");
   } catch (e) {
-    throw new Error(e.message)
+    throw new Error(e.message);
   }
 }
 
